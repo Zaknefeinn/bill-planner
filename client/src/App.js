@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Calendar from './components/Calendar';
+import Calendar from './components/Calendar/Planner';
 import './App.css';
 
 class App extends Component {

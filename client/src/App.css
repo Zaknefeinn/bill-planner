@@ -7,5 +7,11 @@
 }
 
 .summary:hover {
-  /* background-color: red; */
+  background-color: red;
+}
+.react-calendar__month-view__days__day--weekend {
+  color: black;
+}
+.react-calendar__tile--active {
+  color: white;
 }
