@@ -10,7 +10,6 @@ const customStyles = {
     border: '0',
     borderRadius: '4px',
     bottom: 'auto',
-    minHeight: '10rem',
     left: '50%',
     display: 'flex',
     padding: '2rem',
@@ -18,9 +17,8 @@ const customStyles = {
     right: 'auto',
     top: '50%',
     transform: 'translate(-50%,-50%)',
-    minWidth: '20rem',
-    width: '80%',
-    maxWidth: '60rem'
+    width: '500px',
+    height: '600px'
   },
   overlay: {
     backgroundColor: 'rgba(76, 76, 73,0.75)'
@@ -29,14 +27,34 @@ const customStyles = {
 Modal.setAppElement('#root');
 
 const data = {
-  '07-24-2018': {
-    description:
-      ' Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test'
-  },
-  '08-13-2018': {
-    description:
-      'asdasdkjha asdahskdjhas kjhasdkjashkld jsdkashdljahlskjdhalsjdhal'
-  }
+  '07-24-2018': [
+    {
+      name: 'Test Name',
+      category: 'Test Category',
+      account: { accountName: 'Test Account', accountBalance: 1234 },
+      description:
+        ' Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test',
+      amount: 342
+    },
+    {
+      name: 'Test Name2',
+      category: 'Test Category2',
+      account: { accountName: 'Test Account2', accountBalance: 1234 },
+      description:
+        ' 22222Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test',
+      amount: 3422
+    }
+  ],
+  '08-13-2018': [
+    {
+      name: 'Test Name',
+      category: 'Test Category',
+      account: { accountName: 'Test Account', accountBalance: 5542 },
+      description:
+        ' Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test',
+      amount: 342
+    }
+  ]
 };
 
 export default class Planner extends Component {
@@ -59,19 +77,23 @@ export default class Planner extends Component {
     });
   };
   onChange = date => {
-    const cellDate = moment(date).format('MM-DD-YYYY');
+    // const cellDate = moment(date).format('MM-DD-YYYY');
     this.openModal();
     this.setState({ date });
   };
   calendarSummary = date => {
-    // const test = Moment('07-24-2018', 'MM-DD-YYYY');
     const cellDate = moment(date.date).format('MM-DD-YYYY');
     if (data[cellDate]) {
       return (
-        <div className="summary">{`${data[cellDate].description.substr(
-          0,
-          20
-        )}...`}</div>
+        <div>
+          {data[cellDate].map((bill, index) => {
+            return (
+              <div key={`${bill.name}-${index}`} className="summary">
+                {bill.name}
+              </div>
+            );
+          })}
+        </div>
       );
     }
   };
