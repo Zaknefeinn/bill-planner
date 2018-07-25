@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Input from '../common/Input';
 
 class NewBill extends Component {
   constructor(props) {
@@ -31,15 +32,17 @@ class NewBill extends Component {
     });
   };
   render() {
+    const { bill, category, account, description, amount, date } = this.state;
     return (
       <form className="newBill" onSubmit={this.handleSubmit}>
         <h1>Add Bill</h1>
-        <input
-          className="reg-input"
-          type="text"
-          name="bill"
+
+        <Input
           placeholder="Name"
+          name="bill"
           onChange={this.handleChange}
+          value={bill}
+          classType="reg-input"
         />
         <select
           className="reg-input two-input"
@@ -61,28 +64,30 @@ class NewBill extends Component {
           <option value="defaultAccount">-- select an account -- </option>
           <option value="create-account">Create new Account</option>
         </select>
-        <input
-          className="reg-input"
-          name="description"
-          type="text"
+
+        <Input
           placeholder="Description"
+          name="description"
           onChange={this.handleChange}
+          value={description}
+          classType="reg-input"
         />
         <div>
           <span>$</span>
-          <input
-            className="reg-input two-input"
-            type="number"
+          <Input
             placeholder="Amount"
             name="amount"
             onChange={this.handleChange}
+            value={amount}
+            type="number"
+            classType="reg-input two-input"
           />
-          <input
-            className="reg-input two-input"
-            type="text"
+          <Input
             placeholder="date"
             name="date"
             onChange={this.handleChange}
+            value={date}
+            classType="reg-input two-input"
           />
         </div>
         <button type="submit">Submit</button>

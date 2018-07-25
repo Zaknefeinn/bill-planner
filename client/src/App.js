@@ -6,7 +6,7 @@ import setAuthToken from './utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
 
 import Calendar from './components/Calendar/Planner';
-import Landing from './components/Landing';
+import Landing from './components/Landing/Landing';
 import './App.css';
 
 class App extends Component {

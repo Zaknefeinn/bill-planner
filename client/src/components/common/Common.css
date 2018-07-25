@@ -1,0 +1,13 @@
+.reg-input {
+  width: 300px;
+  border-bottom: 1px solid black;
+  border-radius: 3px;
+  padding: 8px;
+  margin: 15px;
+}
+.two-input {
+  width: 200px;
+}
+.form-div {
+  display: inline-block;
+}
