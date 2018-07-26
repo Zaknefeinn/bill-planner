@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Calendar from 'react-calendar';
+import CalendarModule from 'react-calendar';
 import Event from './Event.js';
 
 import moment from 'moment';
@@ -58,7 +58,7 @@ const data = {
   ]
 };
 
-export default class Planner extends Component {
+export default class Calendar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -102,7 +102,7 @@ export default class Planner extends Component {
   render() {
     return (
       <div>
-        <Calendar
+        <CalendarModule
           onChange={this.onChange}
           value={this.state.date}
           tileContent={this.calendarSummary}

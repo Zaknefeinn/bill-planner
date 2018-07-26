@@ -12,15 +12,17 @@ class Landing extends Component {
       login: true
     };
   }
+
   toggleDisplay = () => {
     this.setState({
       login: !this.state.login
     });
   };
-  logOut = () => {
-    this.props.logoutUser();
-  };
+
   render() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/manage');
+    }
     const { login } = this.state;
     let container;
     login
@@ -28,7 +30,6 @@ class Landing extends Component {
       : (container = <Register toggle={this.toggleDisplay} />);
     return (
       <div className="Landing">
-        <button onClick={this.logOut}>Log Out</button>
         <div className="landing-container">{container}</div>
       </div>
     );

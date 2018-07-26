@@ -5,7 +5,7 @@ import { setCurrentUser, logoutUser } from './actions/authActions';
 import setAuthToken from './utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
 
-import Calendar from './components/Calendar/Planner';
+import Dashboard from './components/Dashboard/Dashboard';
 import Landing from './components/Landing/Landing';
 import './App.css';
 
@@ -23,15 +23,11 @@ class App extends Component {
   }
 
   render() {
-    let landing;
-    this.props.auth.isAuthenticated
-      ? (landing = Calendar)
-      : (landing = Landing);
     return (
       <Router>
         <div className="App">
-          <Route exact path="/" component={landing} />
-          <Route exact path="/manage" component={Calendar} />
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/manage" component={Dashboard} />
         </div>
       </Router>
     );

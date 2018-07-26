@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Input from '../common/Input';
+import Input from '../../common/Input';
 
 class NewBill extends Component {
   constructor(props) {
