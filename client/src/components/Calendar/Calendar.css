@@ -1,0 +1,34 @@
+.react-calendar {
+  width: 100%;
+}
+.react-calendar__tile {
+  height: 100px;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: black;
+}
+.react-calendar__tile--active {
+  color: white;
+}
+.new-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+}
+.newBill {
+  font-size: 1.5em;
+}
+
+.newBill span {
+  font-size: 0.5em;
+}
+
+.CalendarBill {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}

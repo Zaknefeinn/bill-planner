@@ -12,7 +12,8 @@
   background-color: #ebebeb;
   text-align: center;
 }
-.login form {
+.login form,
+.register form {
   display: flex;
   flex-direction: column;
 }

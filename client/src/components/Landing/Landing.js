@@ -1,29 +1,44 @@
 import React, { Component } from 'react';
 import Login from './Login';
 import Register from './Register';
+import { connect } from 'react-redux';
+import { logoutUser } from '../../actions/authActions';
 
 import './Landing.css';
 class Landing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      display: 'login'
+      login: true
     };
   }
+  toggleDisplay = () => {
+    this.setState({
+      login: !this.state.login
+    });
+  };
+  logOut = () => {
+    this.props.logoutUser();
+  };
   render() {
-    const { display } = this.state;
+    const { login } = this.state;
     let container;
-    if (display === 'login') {
-      container = <Login />;
-    } else {
-      container = <Register />;
-    }
+    login
+      ? (container = <Login toggle={this.toggleDisplay} />)
+      : (container = <Register toggle={this.toggleDisplay} />);
     return (
       <div className="Landing">
+        <button onClick={this.logOut}>Log Out</button>
         <div className="landing-container">{container}</div>
       </div>
     );
   }
 }
+const mapStateToProps = state => ({
+  auth: state.auth
+});
 
-export default Landing;
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(Landing);

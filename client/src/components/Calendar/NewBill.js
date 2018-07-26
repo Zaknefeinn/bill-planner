@@ -24,6 +24,7 @@ class NewBill extends Component {
       amount,
       date
     };
+    console.log(newBill);
   };
 
   handleChange = state => {
@@ -36,7 +37,6 @@ class NewBill extends Component {
     return (
       <form className="newBill" onSubmit={this.handleSubmit}>
         <h1>Add Bill</h1>
-
         <Input
           placeholder="Name"
           name="bill"
@@ -47,7 +47,7 @@ class NewBill extends Component {
         <select
           className="reg-input two-input"
           name="category"
-          value={this.state.category}
+          value={category}
           onChange={this.handleChange}
         >
           <option value="defaultCategory">-- select a category --</option>
@@ -58,7 +58,7 @@ class NewBill extends Component {
         <select
           className="reg-input two-input"
           name="account"
-          value={this.state.account}
+          value={account}
           onChange={this.handleChange}
         >
           <option value="defaultAccount">-- select an account -- </option>

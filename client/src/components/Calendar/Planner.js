@@ -4,6 +4,7 @@ import Event from './Event.js';
 
 import moment from 'moment';
 import Modal from 'react-modal';
+import './Calendar.css';
 
 const customStyles = {
   content: {

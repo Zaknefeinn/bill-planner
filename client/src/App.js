@@ -21,19 +21,27 @@ class App extends Component {
       }
     }
   }
+
   render() {
+    let landing;
+    this.props.auth.isAuthenticated
+      ? (landing = Calendar)
+      : (landing = Landing);
     return (
       <Router>
         <div className="App">
-          <Route exact path="/" component={Landing} />
+          <Route exact path="/" component={landing} />
           <Route exact path="/manage" component={Calendar} />
         </div>
       </Router>
     );
   }
 }
+const mapStateToProps = state => ({
+  auth: state.auth
+});
 
 export default connect(
-  null,
+  mapStateToProps,
   { setCurrentUser }
 )(App);
