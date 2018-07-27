@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Input from '../../common/Input';
-
+import { connect } from 'react-redux';
+import { addBill } from '../../../actions/billActions';
 class NewBill extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +25,7 @@ class NewBill extends Component {
       amount,
       date
     };
-    console.log(newBill);
+    this.props.addBill(newBill);
   };
 
   handleChange = state => {
@@ -95,5 +96,11 @@ class NewBill extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  auth: state.auth
+});
 
-export default NewBill;
+export default connect(
+  mapStateToProps,
+  { addBill }
+)(NewBill);

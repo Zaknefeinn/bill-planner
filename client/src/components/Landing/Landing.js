@@ -19,10 +19,12 @@ class Landing extends Component {
     });
   };
 
-  render() {
+  componentDidUpdate() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/manage');
     }
+  }
+  render() {
     const { login } = this.state;
     let container;
     login

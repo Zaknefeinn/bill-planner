@@ -14,6 +14,38 @@ const UserSchema = new Schema({
     type: String,
     require: true
   },
+  bills: [
+    {
+      bill: {
+        type: String,
+        require: true
+      },
+      account: {
+        type: String,
+        require: true
+      },
+      amount: {
+        type: Number,
+        require: true
+      },
+      category: {
+        type: String,
+        require: true
+      },
+      date: {
+        type: String,
+        require: true
+      },
+      description: {
+        type: String,
+        require: true
+      },
+      repeat: {
+        type: Boolean,
+        require: true
+      }
+    }
+  ],
   date: {
     type: Date,
     default: Date.now
