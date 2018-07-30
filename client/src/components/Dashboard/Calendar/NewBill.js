@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import Input from '../../common/Input';
 import { connect } from 'react-redux';
 import { addBill } from '../../../actions/billActions';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
+import 'react-datepicker/dist/react-datepicker.css';
 class NewBill extends Component {
   constructor(props) {
     super(props);
@@ -11,7 +15,7 @@ class NewBill extends Component {
       account: 'defaultAccount',
       description: '',
       amount: '',
-      date: ''
+      date: moment()
     };
   }
   handleSubmit = e => {
@@ -23,7 +27,8 @@ class NewBill extends Component {
       account,
       description,
       amount,
-      date
+      date,
+      repeat: false
     };
     this.props.addBill(newBill);
   };
@@ -31,6 +36,11 @@ class NewBill extends Component {
   handleChange = state => {
     this.setState({
       [state.target.name]: state.target.value
+    });
+  };
+  changeDate = date => {
+    this.setState({
+      date
     });
   };
   render() {
@@ -83,13 +93,10 @@ class NewBill extends Component {
             type="number"
             classType="reg-input two-input"
           />
-          <Input
-            placeholder="date"
-            name="date"
-            onChange={this.handleChange}
-            value={date}
-            classType="reg-input two-input"
-          />
+          <div className="reg-input two-input">
+            {' '}
+            <DatePicker selected={this.state.date} onChange={this.changeDate} />
+          </div>
         </div>
         <button type="submit">Submit</button>
       </form>

@@ -43,6 +43,10 @@ const UserSchema = new Schema({
       repeat: {
         type: Boolean,
         require: true
+      },
+      repeatTime: {
+        type: Number,
+        require: false
       }
     }
   ],

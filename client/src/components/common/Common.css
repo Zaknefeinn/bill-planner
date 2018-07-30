@@ -6,7 +6,9 @@
   margin: 15px;
 }
 .two-input {
-  width: 200px;
+  display: inline-block;
+  width: 180px;
+  /* margin: 5px; */
 }
 .form-div {
   display: inline-block;
