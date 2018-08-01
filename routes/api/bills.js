@@ -16,7 +16,8 @@ router.post(
       account,
       description,
       amount,
-      date,
+      startDate,
+      endDate,
       repeat
     } = req.body;
     User.findOne({ _id: req.user.id })
@@ -27,7 +28,8 @@ router.post(
           account,
           description,
           amount,
-          date,
+          startDate,
+          endDate,
           repeat
         };
         const billExists = user.bills.filter(
@@ -41,6 +43,15 @@ router.post(
         }
       })
       .catch(err => console.log(err));
+  }
+);
+router.get(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    User.findOne({ _id: req.user.id }).then(user => {
+      res.json(user);
+    });
   }
 );
 module.exports = router;

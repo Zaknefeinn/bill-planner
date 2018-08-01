@@ -15,21 +15,33 @@ class NewBill extends Component {
       account: 'defaultAccount',
       description: '',
       amount: '',
-      date: moment()
+      date: moment(),
+      repeat: 'noRepeat'
     };
   }
   handleSubmit = e => {
     e.preventDefault();
-    const { bill, category, account, description, amount, date } = this.state;
+    const { bill, category, account, description, amount, repeat } = this.state;
+    const date = moment(this.state.date).format('MM-DD-YYYY');
+    let endDate;
+    if (repeat === 'noRepeat') {
+      endDate = date;
+    } else {
+      endDate = moment(this.state.date)
+        .add(1, 'y')
+        .format('MM-DD-YYYY');
+    }
     const newBill = {
       bill,
       category,
       account,
       description,
       amount,
-      date,
-      repeat: false
+      repeat,
+      startDate: date,
+      endDate
     };
+
     this.props.addBill(newBill);
   };
 
@@ -44,7 +56,7 @@ class NewBill extends Component {
     });
   };
   render() {
-    const { bill, category, account, description, amount, date } = this.state;
+    const { bill, category, account, description, amount, repeat } = this.state;
     return (
       <form className="newBill" onSubmit={this.handleSubmit}>
         <h1>Add Bill</h1>
@@ -98,6 +110,17 @@ class NewBill extends Component {
             <DatePicker selected={this.state.date} onChange={this.changeDate} />
           </div>
         </div>
+        <select
+          className="reg-input two-input"
+          name="repeat"
+          value={repeat}
+          onChange={this.handleChange}
+        >
+          <option value="noRepeat">-- Do Not Repeat --</option>
+          <option value="Weekly">Weekly</option>
+          <option value="Bi-Weekly">Bi-Weekly</option>
+          <option value="Monthly">Monthly</option>
+        </select>
         <button type="submit">Submit</button>
       </form>
     );

@@ -32,21 +32,21 @@ const UserSchema = new Schema({
         type: String,
         require: true
       },
-      date: {
-        type: String,
-        require: true
-      },
       description: {
         type: String,
         require: true
       },
       repeat: {
-        type: Boolean,
+        type: String,
+        require: false
+      },
+      startDate: {
+        type: String,
         require: true
       },
-      repeatTime: {
-        type: Number,
-        require: false
+      endDate: {
+        type: String,
+        require: true
       }
     }
   ],

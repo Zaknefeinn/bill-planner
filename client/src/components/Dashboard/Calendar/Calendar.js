@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import CalendarModule from 'react-calendar';
 import Event from './Event.js';
-
+import { connect } from 'react-redux';
 import moment from 'moment';
 import Modal from 'react-modal';
 import './Calendar.css';
+import { getBills } from '../../../actions/billActions';
 
 const customStyles = {
   content: {
@@ -27,44 +28,16 @@ const customStyles = {
 };
 Modal.setAppElement('#root');
 
-const data = {
-  '07-24-2018': [
-    {
-      name: 'Test Name',
-      category: 'Test Category',
-      account: { accountName: 'Test Account', accountBalance: 1234 },
-      description:
-        ' Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test',
-      amount: 342
-    },
-    {
-      name: 'Test Name2',
-      category: 'Test Category2',
-      account: { accountName: 'Test Account2', accountBalance: 1234 },
-      description:
-        ' 22222Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test',
-      amount: 3422
-    }
-  ],
-  '08-13-2018': [
-    {
-      name: 'Test Name',
-      category: 'Test Category',
-      account: { accountName: 'Test Account', accountBalance: 5542 },
-      description:
-        ' Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test',
-      amount: 342
-    }
-  ]
-};
-
-export default class Calendar extends Component {
+class Calendar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       modalIsOpen: false,
       date: new Date()
     };
+  }
+  componentDidMount() {
+    this.props.getBills();
   }
   openModal = () => {
     this.setState({
@@ -78,28 +51,34 @@ export default class Calendar extends Component {
     });
   };
   onChange = date => {
-    // const cellDate = moment(date).format('MM-DD-YYYY');
     this.openModal();
     this.setState({ date });
   };
   calendarSummary = date => {
-    const cellDate = moment(date.date).format('MM-DD-YYYY');
-    if (data[cellDate]) {
-      return (
-        <div>
-          {data[cellDate].map((bill, index) => {
-            return (
-              <div key={`${bill.name}-${index}`} className="summary">
-                {bill.name}
-              </div>
-            );
-          })}
-        </div>
-      );
+    const data = this.props.bills.bills;
+    if (data.length > 0) {
+      const cellDate = moment(date.date).format('MM-DD-YYYY');
+      console.log(data);
+
+      // const existingBill = data.filter(bill => bill.startDate === cellDate);
+      // if (existingBill.length > 0) {
+      //   return (
+      //     <div>
+      //       {existingBill.map((bill, index) => {
+      //         return (
+      //           <div key={`${bill.bill}-${index}`} className="summary">
+      //             {bill.bill}
+      //           </div>
+      //         );
+      //       })}
+      //     </div>
+      //   );
+      // }
     }
   };
 
   render() {
+    const data = this.props.bills.bills;
     return (
       <div>
         <CalendarModule
@@ -122,3 +101,12 @@ export default class Calendar extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  auth: state.auth,
+  bills: state.bills
+});
+
+export default connect(
+  mapStateToProps,
+  { getBills }
+)(Calendar);
