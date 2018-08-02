@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import CalendarModule from 'react-calendar';
 import Event from './Event.js';
 import { connect } from 'react-redux';
-import moment from 'moment';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
 import Modal from 'react-modal';
 import './Calendar.css';
 import { getBills } from '../../../actions/billActions';
+
+const moment = extendMoment(Moment);
 
 const customStyles = {
   content: {
@@ -33,11 +36,63 @@ class Calendar extends Component {
     super(props);
     this.state = {
       modalIsOpen: false,
-      date: new Date()
+      date: new Date(),
+      data: [],
+      loading: true
     };
+  }
+  componentWillReceiveProps(nextProps) {
+    let billArr = [];
+    if (nextProps.bills.bills.length > 0) {
+      nextProps.bills.bills.map(bill => {
+        const start = moment(bill.startDate, 'MM-DD-YYYY');
+        const end = moment(start).add(2, 'years');
+        const range = moment.range(start, end);
+        let data;
+        switch (bill.repeat) {
+          case 'Weekly':
+            data = Array.from(range.by('weeks')).map(date =>
+              date.format('MM-DD-YYYY')
+            );
+            break;
+          case 'Bi-Weekly':
+            data = Array.from(range.by('weeks', { step: 2 })).map(date =>
+              date.format('MM-DD-YYYY')
+            );
+            break;
+          case 'Monthly':
+            data = Array.from(range.by('months')).map(date =>
+              date.format('MM-DD-YYYY')
+            );
+            break;
+          default:
+            data = [start.format('MM-DD-YYYY')];
+            break;
+        }
+        billArr.push(
+          data.map(billDate => {
+            return {
+              [billDate]: {
+                bill: bill.bill,
+                account: bill.account,
+                amount: bill.amount,
+                category: bill.category,
+                description: bill.description
+              }
+            };
+          })
+        );
+      });
+      //If data is fetching
+      this.setState({ loading: false });
+    }
+    this.setState({ data: billArr });
   }
   componentDidMount() {
     this.props.getBills();
+  }
+  componendDidUpdate() {
+    console.log(this.props.bills.bills);
   }
   openModal = () => {
     this.setState({
@@ -55,50 +110,51 @@ class Calendar extends Component {
     this.setState({ date });
   };
   calendarSummary = date => {
-    const data = this.props.bills.bills;
-    if (data.length > 0) {
-      const cellDate = moment(date.date).format('MM-DD-YYYY');
-      console.log(data);
-
-      // const existingBill = data.filter(bill => bill.startDate === cellDate);
-      // if (existingBill.length > 0) {
-      //   return (
-      //     <div>
-      //       {existingBill.map((bill, index) => {
-      //         return (
-      //           <div key={`${bill.bill}-${index}`} className="summary">
-      //             {bill.bill}
-      //           </div>
-      //         );
-      //       })}
-      //     </div>
-      //   );
-      // }
-    }
+    const { data } = this.state;
+    const cellDate = Moment(date.date).format('MM-DD-YYYY');
+    return data.map(bill => {
+      return bill.map((reOccurance, index) => {
+        if (reOccurance[cellDate]) {
+          const repeatBill = reOccurance[cellDate];
+          return (
+            <div key={`${repeatBill.bill}-${index}-parent`}>
+              <div key={`${repeatBill.bill}-${index}`} className="summary">
+                {repeatBill.bill}
+              </div>
+            </div>
+          );
+        }
+      });
+    });
   };
 
   render() {
-    const data = this.props.bills.bills;
-    return (
-      <div>
-        <CalendarModule
-          onChange={this.onChange}
-          value={this.state.date}
-          tileContent={this.calendarSummary}
-        />
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          onRequestClose={this.closeModal}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
-          <Event
-            date={moment(this.state.date).format('MM-DD-YYYY')}
-            data={data}
+    // console.log(this.state.bills);
+    const { loading, data } = this.state;
+    if (loading) {
+      return <div>Loading...</div>;
+    } else {
+      return (
+        <div>
+          <CalendarModule
+            onChange={this.onChange}
+            value={this.state.date}
+            tileContent={this.calendarSummary}
           />
-        </Modal>
-      </div>
-    );
+          <Modal
+            isOpen={this.state.modalIsOpen}
+            onRequestClose={this.closeModal}
+            style={customStyles}
+            contentLabel="Example Modal"
+          >
+            <Event
+              date={Moment(this.state.date).format('MM-DD-YYYY')}
+              data={data}
+            />
+          </Modal>
+        </div>
+      );
+    }
   }
 }
 const mapStateToProps = state => ({
