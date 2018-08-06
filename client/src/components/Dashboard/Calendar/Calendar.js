@@ -69,7 +69,7 @@ class Calendar extends Component {
             data = [start.format('MM-DD-YYYY')];
             break;
         }
-        billArr.push(
+        return billArr.push(
           data.map(billDate => {
             return {
               [billDate]: {
@@ -123,6 +123,8 @@ class Calendar extends Component {
               </div>
             </div>
           );
+        } else {
+          return null;
         }
       });
     });
