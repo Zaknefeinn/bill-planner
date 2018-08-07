@@ -17,7 +17,7 @@ router.post(
       description,
       amount,
       startDate,
-      endDate,
+      // endDate,
       repeat
     } = req.body;
     User.findOne({ _id: req.user.id })
@@ -29,7 +29,7 @@ router.post(
           description,
           amount,
           startDate,
-          endDate,
+          // endDate,
           repeat
         };
         const billExists = user.bills.filter(

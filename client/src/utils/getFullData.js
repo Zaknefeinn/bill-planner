@@ -6,28 +6,23 @@ export const getFullDataArray = dataArr => {
   // console.log(dataArr);
   let billArr = [];
   dataArr.bills.bills.map(bill => {
-    const start = moment(bill.startDate, 'MM-DD-YYYY');
+    // const start = moment(bill.startDate, 'MM-DD-YYYY');
+    const start = bill.startDate;
     const end = moment(start).add(2, 'years');
     const range = moment.range(start, end);
     let data;
     switch (bill.repeat) {
       case 'Weekly':
-        data = Array.from(range.by('weeks')).map(date =>
-          date.format('MM-DD-YYYY')
-        );
+        data = Array.from(range.by('weeks')).map(date => date);
         break;
       case 'Bi-Weekly':
-        data = Array.from(range.by('weeks', { step: 2 })).map(date =>
-          date.format('MM-DD-YYYY')
-        );
+        data = Array.from(range.by('weeks', { step: 2 })).map(date => date);
         break;
       case 'Monthly':
-        data = Array.from(range.by('months')).map(date =>
-          date.format('MM-DD-YYYY')
-        );
+        data = Array.from(range.by('months')).map(date => date);
         break;
       default:
-        data = [start.format('MM-DD-YYYY')];
+        data = [start];
         break;
     }
     return billArr.push(

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-
+import Moment from 'moment';
 class CalendarBill extends Component {
   render() {
     const { data, date } = this.props;
     return (
       <div className="CalendarBill">
         <div className="calendar-view-title">
-          <h1>Bills for {date}</h1>
+          <h1>Bills for {Moment(date).format('MM/DD/YY')}</h1>
         </div>
         <div className="calendar-view-bill-container">
           {data.map(bill => {

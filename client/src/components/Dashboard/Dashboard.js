@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import Calendar from './Calendar/Calendar';
 import ListView from './ListView/ListView';
 import { logoutUser } from '../../actions/authActions';
-import Moment from 'moment';
-import { extendMoment } from 'moment-range';
+// import Moment from 'moment';
+// import { extendMoment } from 'moment-range';
 import { getBills } from '../../actions/billActions';
 import { getFullDataArray } from '../../utils/getFullData';
-const moment = extendMoment(Moment);
+// const moment = extendMoment(Moment);
 
 class Dashboard extends Component {
   constructor(props) {
@@ -35,13 +35,23 @@ class Dashboard extends Component {
     this.props.history.push('/');
   };
   render() {
-    return (
-      <div>
-        <button onClick={this.logOut}>Log Out</button>
-        <ListView data={this.state.data} loading={this.state.loading} />
-        <Calendar data={this.state.data} loading={this.state.loading} />
-      </div>
-    );
+    const { loading } = this.state;
+    if (loading) {
+      return (
+        <div>
+          <button onClick={this.logOut}>Log Out</button>
+          Loading...
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <button onClick={this.logOut}>Log Out</button>
+          <ListView data={this.state.data} loading={this.state.loading} />
+          <Calendar data={this.state.data} loading={this.state.loading} />
+        </div>
+      );
+    }
   }
 }
 const mapStateToProps = state => ({

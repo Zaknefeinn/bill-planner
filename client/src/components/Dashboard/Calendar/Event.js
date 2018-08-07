@@ -6,7 +6,7 @@ const Event = props => {
   const { date, data } = props;
   let container;
   let billExists = [];
-
+  console.log(date);
   data.map(bills => {
     const existingBill = bills.filter(bill => bill[date] !== undefined);
     if (existingBill.length > 0) {

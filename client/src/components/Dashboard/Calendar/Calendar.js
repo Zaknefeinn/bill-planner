@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import CalendarModule from 'react-calendar';
 import Event from './Event.js';
-// import { connect } from 'react-redux';
 import Moment from 'moment';
 import Modal from 'react-modal';
 import './Calendar.css';
-// import { getBills } from '../../../actions/billActions';
 
 const customStyles = {
   content: {
@@ -56,7 +54,7 @@ class Calendar extends Component {
   };
   calendarSummary = date => {
     const { data } = this.props;
-    const cellDate = Moment(date.date).format('MM-DD-YYYY');
+    const cellDate = Moment(date.date);
     return data.map(bill => {
       return bill.map((reOccurance, index) => {
         if (reOccurance[cellDate]) {
@@ -93,10 +91,7 @@ class Calendar extends Component {
             style={customStyles}
             contentLabel="Example Modal"
           >
-            <Event
-              date={Moment(this.state.date).format('MM-DD-YYYY')}
-              data={data}
-            />
+            <Event date={Moment(this.state.date)} data={data} />
           </Modal>
         </div>
       );

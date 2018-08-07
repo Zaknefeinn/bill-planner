@@ -28,15 +28,14 @@ class NewBill extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { bill, category, account, description, amount, repeat } = this.state;
-    const date = moment(this.state.date).format('MM-DD-YYYY');
-    let endDate;
-    if (repeat === 'noRepeat') {
-      endDate = date;
-    } else {
-      endDate = moment(this.state.date)
-        .add(1, 'y')
-        .format('MM-DD-YYYY');
-    }
+    const date = moment(this.state.date);
+    // let endDate;
+    // if (repeat === 'noRepeat') {
+    //   endDate = date;
+    // } else {
+    //   endDate = moment(this.state.date).add(1, 'y');
+    //   // .format('MM-DD-YYYY');
+    // }
     const newBill = {
       bill,
       category,
@@ -44,8 +43,8 @@ class NewBill extends Component {
       description,
       amount,
       repeat,
-      startDate: date,
-      endDate
+      startDate: date
+      // endDate
     };
 
     this.props.addBill(newBill);
