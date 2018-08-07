@@ -19,6 +19,12 @@ class NewBill extends Component {
       repeat: 'noRepeat'
     };
   }
+  componentDidMount() {
+    const selectedDate = moment(this.props.date, 'MM-DD-YYYY');
+    this.setState({
+      date: selectedDate
+    });
+  }
   handleSubmit = e => {
     e.preventDefault();
     const { bill, category, account, description, amount, repeat } = this.state;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import moment from 'moment';
+
 class CalendarBill extends Component {
   render() {
     const { data, date } = this.props;
