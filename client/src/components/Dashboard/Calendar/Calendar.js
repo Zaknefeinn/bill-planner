@@ -77,6 +77,7 @@ class Calendar extends Component {
   };
 
   render() {
+    console.log(this.state.date);
     const { loading, data } = this.props;
     if (loading) {
       return <div>Loading...</div>;
@@ -87,6 +88,7 @@ class Calendar extends Component {
             onChange={this.onChange}
             value={this.state.date}
             tileContent={this.calendarSummary}
+            // onClickMonth={value => alert('Clicked month: ', value)}
           />
           <Modal
             isOpen={this.state.modalIsOpen}
