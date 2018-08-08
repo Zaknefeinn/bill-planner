@@ -28,16 +28,16 @@ export const getFullDataArray = dataArr => {
     return billArr.push(
       data.map(billDate => {
         return {
-          [billDate]: {
-            bill: bill.bill,
-            account: bill.account,
-            amount: bill.amount,
-            category: bill.category,
-            description: bill.description
-          }
+          bill: bill.bill,
+          account: bill.account,
+          amount: bill.amount,
+          category: bill.category,
+          description: bill.description,
+          date: billDate
         };
       })
     );
   });
+  console.log(billArr);
   return billArr;
 };

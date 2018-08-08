@@ -56,20 +56,23 @@ class Calendar extends Component {
     const { data } = this.props;
     const cellDate = Moment(date.date);
     return data.map(bill => {
-      return bill.map((reOccurance, index) => {
-        if (reOccurance[cellDate]) {
-          const repeatBill = reOccurance[cellDate];
-          return (
-            <div key={`${repeatBill.bill}-${index}-parent`}>
-              <div key={`${repeatBill.bill}-${index}`} className="summary">
-                {repeatBill.bill}
-              </div>
-            </div>
-          );
-        } else {
-          return null;
-        }
+      const existingBill = bill.filter(show => {
+        return show.date.format() === cellDate.format();
       });
+      if (existingBill.length > 0) {
+        return (
+          <div key={`${existingBill[0].bill}-${existingBill[0].amount}-parent`}>
+            <div
+              key={`${existingBill[0].bill}-${existingBill[0].amount}`}
+              className="summary"
+            >
+              {existingBill[0].bill}
+            </div>
+          </div>
+        );
+      } else {
+        return null;
+      }
     });
   };
 

@@ -10,13 +10,12 @@ class CalendarBill extends Component {
         </div>
         <div className="calendar-view-bill-container">
           {data.map(bill => {
-            const currentBill = bill[date];
             return (
-              <div key={`${date}-${currentBill.bill}`}>
-                <h1>{currentBill.bill}</h1>
-                <h3>{currentBill.category}</h3>
-                <h3>{currentBill.account.accountName}</h3>
-                <h3>${currentBill.amount}</h3>
+              <div key={`${date}-${bill.bill}`}>
+                <h1>{bill.bill}</h1>
+                <h3>{bill.category}</h3>
+                <h3>{bill.account.accountName}</h3>
+                <h3>${bill.amount}</h3>
               </div>
             );
           })}

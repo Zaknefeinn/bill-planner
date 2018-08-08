@@ -1,21 +1,32 @@
 import React from 'react';
-
+import _ from 'lodash';
+import Moment from 'moment';
 import './ListView.css';
 
 export default props => {
-  const combinedArray = []
-    .concat(...props.data)
-    .sort((a, b) => new Date(Object.keys(a)[0]) - new Date(Object.keys(b)[0]));
+  // console.log(props);
+  // const combinedArray = [].concat(...props.data)._.sortBy(combinedArray, [
+  //   function(o) {
+  //     return new Date(o.date);
+  //   }
+  // ]);
+  const combinedArray = _.concat(...props.data);
+  const result = _.sortBy(combinedArray, [
+    function(o) {
+      return new Date(o.date);
+    }
+  ]);
 
   return (
     <div className="ListView">
       <div className="list-container">
-        <div className="list-card">Test Card</div>
-        <div className="list-card">Test Card</div>
-        <div className="list-card">Test Card</div>
-        <div className="list-card">Test Card</div>
-        <div className="list-card">Test Card</div>
-        <div className="list-card">Test Card</div>
+        {result.map(bill => {
+          return (
+            <div className="list-card">
+              {bill.bill} - {Moment(bill.date).format('MM/DD/YY')}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
