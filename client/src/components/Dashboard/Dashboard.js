@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Calendar from './Calendar/Calendar';
 import ListView from './ListView/ListView';
 import Navbar from './Navbar/Navbar';
+import TabNav from './TabNav/TabNav';
 import { getBills } from '../../actions/billActions';
 import { logoutUser } from '../../actions/authActions';
 import { getFullDataArray } from '../../utils/getFullData';
@@ -46,6 +47,7 @@ class Dashboard extends Component {
       return (
         <div>
           <Navbar logOut={this.logOut} />
+          <TabNav />
           <ListView data={this.state.data} loading={this.state.loading} />
           <Calendar data={this.state.data} loading={this.state.loading} />
         </div>

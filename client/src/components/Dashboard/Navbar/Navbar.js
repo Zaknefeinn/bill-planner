@@ -14,17 +14,18 @@ class Navbar extends Component {
               <i className="fas fa-ellipsis-v" />
             </span>
             <div id="dropDown" className="dropdown-content">
-              <a className="dropdown-item" onClick={this.props.logOut}>
-                <span className="btn-icon">
-                  <i className="fas fa-sign-out-alt" />
-                </span>{' '}
-                Log Out
-              </a>
+              {' '}
               <a className="dropdown-item">
                 <span className="btn-icon">
                   <i className="fas fa-cog" />
                 </span>
                 Profile
+              </a>
+              <a className="dropdown-item" onClick={this.props.logOut}>
+                <span className="btn-icon">
+                  <i className="fas fa-sign-out-alt" />
+                </span>{' '}
+                Log Out
               </a>
             </div>
           </div>
