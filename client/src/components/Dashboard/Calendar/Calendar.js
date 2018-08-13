@@ -77,7 +77,6 @@ class Calendar extends Component {
   };
 
   render() {
-    console.log(this.state.date);
     const { loading, data } = this.props;
     if (loading) {
       return <div>Loading...</div>;

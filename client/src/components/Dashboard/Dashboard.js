@@ -14,7 +14,8 @@ class Dashboard extends Component {
     this.state = {
       date: new Date(),
       data: [],
-      loading: true
+      loading: true,
+      activeTab: 'Overview'
     };
   }
   componentWillReceiveProps(nextProps) {
@@ -29,6 +30,9 @@ class Dashboard extends Component {
   componentDidMount() {
     this.props.getBills();
   }
+  changeTab = e => {
+    this.setState({ activeTab: e.target.id });
+  };
   logOut = () => {
     this.props.logoutUser();
     this.props.history.push('/');
@@ -47,7 +51,10 @@ class Dashboard extends Component {
       return (
         <div>
           <Navbar logOut={this.logOut} />
-          <TabNav />
+          <TabNav
+            active={this.state.activeTab}
+            changeTab={e => this.changeTab(e)}
+          />
           <ListView data={this.state.data} loading={this.state.loading} />
           <Calendar data={this.state.data} loading={this.state.loading} />
         </div>
