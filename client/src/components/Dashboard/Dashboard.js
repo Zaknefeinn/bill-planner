@@ -8,6 +8,7 @@ import { getBills } from '../../actions/billActions';
 import { logoutUser } from '../../actions/authActions';
 import { getFullDataArray } from '../../utils/getFullData';
 
+import './Dashboard.css';
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -37,9 +38,19 @@ class Dashboard extends Component {
     this.props.logoutUser();
     this.props.history.push('/');
   };
-
+  renderTab = () => {
+    const { activeTab } = this.state;
+    switch (activeTab) {
+      case 'List':
+        return <ListView data={this.state.data} loading={this.state.loading} />;
+      case 'Calendar':
+        return <Calendar data={this.state.data} loading={this.state.loading} />;
+      default:
+        return 'test';
+    }
+  };
   render() {
-    const { loading } = this.state;
+    const { loading, activeTab } = this.state;
     if (loading) {
       return (
         <div>
@@ -51,12 +62,8 @@ class Dashboard extends Component {
       return (
         <div>
           <Navbar logOut={this.logOut} />
-          <TabNav
-            active={this.state.activeTab}
-            changeTab={e => this.changeTab(e)}
-          />
-          <ListView data={this.state.data} loading={this.state.loading} />
-          <Calendar data={this.state.data} loading={this.state.loading} />
+          <TabNav active={activeTab} changeTab={e => this.changeTab(e)} />
+          <div className="main-container">{this.renderTab()}</div>
         </div>
       );
     }

@@ -1,0 +1,6 @@
+.main-container {
+  background-color: #eaeaea;
+  height: calc(100vh - 13.5em);
+  /* height: 100vh; */
+  padding-top: 3.5em;
+}
