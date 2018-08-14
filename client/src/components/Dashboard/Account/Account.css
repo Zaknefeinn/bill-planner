@@ -1,0 +1,9 @@
+.Account {
+  width: 100%;
+}
+.account-container {
+  margin: 0 auto;
+  width: 70%;
+  height: 670px;
+  background-color: #f7f7f7;
+}

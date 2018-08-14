@@ -4,6 +4,7 @@ import Calendar from './Calendar/Calendar';
 import ListView from './ListView/ListView';
 import Navbar from './Navbar/Navbar';
 import TabNav from './TabNav/TabNav';
+import Account from './Account/Account';
 import { getBills } from '../../actions/billActions';
 import { logoutUser } from '../../actions/authActions';
 import { getFullDataArray } from '../../utils/getFullData';
@@ -45,6 +46,8 @@ class Dashboard extends Component {
         return <ListView data={this.state.data} loading={this.state.loading} />;
       case 'Calendar':
         return <Calendar data={this.state.data} loading={this.state.loading} />;
+      case 'Accounts':
+        return <Account />;
       default:
         return 'test';
     }

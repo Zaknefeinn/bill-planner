@@ -14,6 +14,18 @@ const UserSchema = new Schema({
     type: String,
     require: true
   },
+  accounts: [
+    {
+      name: {
+        type: String,
+        require: true
+      },
+      balance: {
+        type: Number,
+        require: true
+      }
+    }
+  ],
   bills: [
     {
       bill: {
