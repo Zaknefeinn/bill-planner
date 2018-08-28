@@ -16,11 +16,11 @@ const UserSchema = new Schema({
   },
   accounts: [
     {
-      name: {
+      accountName: {
         type: String,
         require: true
       },
-      balance: {
+      amount: {
         type: Number,
         require: true
       }

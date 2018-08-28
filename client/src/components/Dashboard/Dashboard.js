@@ -6,6 +6,7 @@ import Navbar from './Navbar/Navbar';
 import TabNav from './TabNav/TabNav';
 import Account from './Account/Account';
 import { getBills } from '../../actions/billActions';
+import { getAccounts } from '../../actions/accountActions';
 import { logoutUser } from '../../actions/authActions';
 import { getFullDataArray } from '../../utils/getFullData';
 
@@ -31,6 +32,7 @@ class Dashboard extends Component {
   }
   componentDidMount() {
     this.props.getBills();
+    this.props.getAccounts();
   }
   changeTab = e => {
     this.setState({ activeTab: e.target.id });
@@ -74,9 +76,10 @@ class Dashboard extends Component {
 }
 const mapStateToProps = state => ({
   auth: state.auth,
-  bills: state.bills
+  bills: state.bills,
+  accounts: state.accounts
 });
 export default connect(
   mapStateToProps,
-  { getBills, logoutUser }
+  { getBills, getAccounts, logoutUser }
 )(Dashboard);

@@ -38,6 +38,5 @@ export const getFullDataArray = dataArr => {
       })
     );
   });
-  console.log(billArr);
   return billArr;
 };

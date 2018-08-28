@@ -1,15 +1,15 @@
-import { GET_BILLS } from '../actions/types';
+import { GET_ACCOUNTS } from '../actions/types';
 
 const initialState = {
-  bills: {}
+  accounts: {}
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case GET_BILLS:
+    case GET_ACCOUNTS:
       return {
         ...state,
-        bills: action.payload
+        accounts: action.payload
       };
     default:
       return state;
