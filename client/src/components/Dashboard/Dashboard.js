@@ -23,7 +23,7 @@ class Dashboard extends Component {
   }
   componentWillReceiveProps(nextProps) {
     let billArr = [];
-    if (nextProps.bills.bills.length > 0) {
+    if (nextProps.bills.length > 0) {
       billArr = getFullDataArray(nextProps);
       //If data is fetching
       this.setState({ loading: false });

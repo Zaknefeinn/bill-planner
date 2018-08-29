@@ -5,7 +5,7 @@ const moment = extendMoment(Moment);
 export const getFullDataArray = dataArr => {
   // console.log(dataArr);
   let billArr = [];
-  dataArr.bills.bills.map(bill => {
+  dataArr.bills.map(bill => {
     // const start = moment(bill.startDate, 'MM-DD-YYYY');
     const start = bill.startDate;
     const end = moment(start).add(2, 'years');

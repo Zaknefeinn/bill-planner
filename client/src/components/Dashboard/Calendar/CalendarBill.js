@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Moment from 'moment';
+import { connect } from 'react-redux';
+import { deleteBill } from '../../../actions/billActions';
 class CalendarBill extends Component {
   render() {
     const { data, date } = this.props;
@@ -22,9 +24,16 @@ class CalendarBill extends Component {
         </div>
         <div className="calendar-view-bill-add">
           <button>Add Bill</button>
+          <button>Delete</button>
         </div>
       </div>
     );
   }
 }
-export default CalendarBill;
+const mapStateToProps = state => ({
+  bills: state.bills
+});
+export default connect(
+  mapStateToProps,
+  { deleteBill }
+)(CalendarBill);

@@ -45,6 +45,7 @@ router.post(
       .catch(err => console.log(err));
   }
 );
+
 router.get(
   '/',
   passport.authenticate('jwt', { session: false }),
@@ -54,4 +55,13 @@ router.get(
     });
   }
 );
+
+router.delete(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    console.log(req.user.id);
+  }
+);
+
 module.exports = router;

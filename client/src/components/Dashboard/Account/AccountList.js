@@ -10,7 +10,7 @@ export default props => {
         </tr>
       </thead>
       <tbody>
-        {props.accounts.accounts.map(account => {
+        {props.accounts.map(account => {
           return (
             <tr key={account.accountName}>
               <td>{account.accountName}</td>
