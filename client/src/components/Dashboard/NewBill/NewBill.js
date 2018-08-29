@@ -82,6 +82,9 @@ class NewBill extends Component {
           onChange={this.handleChange}
         >
           <option value="defaultAccount">-- select an account -- </option>
+          {this.props.accounts.accounts.map(account => (
+            <option value={account.accountName}>{account.accountName}</option>
+          ))}
           <option value="create-account">Create new Account</option>
         </select>
 
@@ -124,7 +127,8 @@ class NewBill extends Component {
   }
 }
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  accounts: state.accounts
 });
 
 export default connect(

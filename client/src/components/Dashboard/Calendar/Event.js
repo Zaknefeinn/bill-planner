@@ -1,5 +1,5 @@
 import React from 'react';
-import NewBill from './NewBill';
+import NewBill from '../NewBill/NewBill';
 import CalendarBill from './CalendarBill';
 
 const Event = props => {
