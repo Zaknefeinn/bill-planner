@@ -83,7 +83,12 @@ class NewBill extends Component {
         >
           <option value="defaultAccount">-- select an account -- </option>
           {this.props.accounts.map(account => (
-            <option value={account.accountName}>{account.accountName}</option>
+            <option
+              key={`${account.accountName}-accountKey`}
+              value={account.accountName}
+            >
+              {account.accountName}
+            </option>
           ))}
           <option value="create-account">Create new Account</option>
         </select>

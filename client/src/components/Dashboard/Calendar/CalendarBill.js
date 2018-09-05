@@ -3,6 +3,12 @@ import Moment from 'moment';
 import { connect } from 'react-redux';
 import { deleteBill } from '../../../actions/billActions';
 class CalendarBill extends Component {
+  handleDelete = test => {
+    const target = this.props.bills.filter(bill => bill.bill === test);
+    if (target[0]._id !== undefined) {
+      this.props.deleteBill(target[0]._id);
+    }
+  };
   render() {
     const { data, date } = this.props;
     return (
@@ -18,13 +24,15 @@ class CalendarBill extends Component {
                 <h3>{bill.category}</h3>
                 <h3>{bill.account.accountName}</h3>
                 <h3>${bill.amount}</h3>
+                <button onClick={e => this.handleDelete(bill.bill)}>
+                  Delete
+                </button>
               </div>
             );
           })}
         </div>
         <div className="calendar-view-bill-add">
           <button>Add Bill</button>
-          <button>Delete</button>
         </div>
       </div>
     );
