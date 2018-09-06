@@ -22,7 +22,7 @@ export const getFullDataArray = dataArr => {
         data = Array.from(range.by('months')).map(date => date);
         break;
       default:
-        data = [start];
+        data = [moment(start)];
         break;
     }
     return billArr.push(

@@ -1,6 +1,6 @@
 .main-container {
-  background-color: #eaeaea;
   height: calc(100vh - 13.5em);
   padding-top: 3.5em;
-  width: 100vw;
+  width: 1200px;
+  margin: 0 auto;
 }

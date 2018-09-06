@@ -23,7 +23,6 @@ class Dashboard extends Component {
   }
   componentWillReceiveProps(nextProps) {
     let billArr = [];
-    console.log('update');
     if (nextProps.bills.length > 0) {
       billArr = getFullDataArray(nextProps);
       //If data is fetching

@@ -52,6 +52,10 @@ class Calendar extends Component {
     this.openModal();
     this.setState({ date });
   };
+  onMonthChange = date => {
+    this.setState({ date });
+  };
+
   calendarSummary = date => {
     const { data } = this.props;
     const cellDate = Moment(date.date);
@@ -87,7 +91,7 @@ class Calendar extends Component {
             onChange={this.onChange}
             value={this.state.date}
             tileContent={this.calendarSummary}
-            // onClickMonth={value => alert('Clicked month: ', value)}
+            onClickMonth={this.onMonthChange}
           />
           <Modal
             isOpen={this.state.modalIsOpen}
