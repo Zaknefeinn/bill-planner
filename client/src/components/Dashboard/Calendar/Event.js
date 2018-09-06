@@ -19,10 +19,16 @@ const Event = props => {
   billExists.length <= 0
     ? (container = (
         <div className="new-container">
-          <NewBill date={date} />
+          <NewBill date={date} closeModal={props.closeModal} />
         </div>
       ))
-    : (container = <CalendarBill date={date} data={billExists} />);
+    : (container = (
+        <CalendarBill
+          date={date}
+          data={billExists}
+          closeModal={props.closeModal}
+        />
+      ));
 
   return container;
 };

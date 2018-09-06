@@ -7,6 +7,7 @@ class CalendarBill extends Component {
     const target = this.props.bills.filter(bill => bill.bill === test);
     if (target[0]._id !== undefined) {
       this.props.deleteBill(target[0]._id);
+      this.props.closeModal();
     }
   };
   render() {

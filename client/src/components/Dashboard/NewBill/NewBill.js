@@ -40,6 +40,7 @@ class NewBill extends Component {
     };
 
     this.props.addBill(newBill);
+    this.props.closeModal();
   };
 
   handleChange = state => {

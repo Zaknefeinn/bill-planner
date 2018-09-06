@@ -95,7 +95,11 @@ class Calendar extends Component {
             style={customStyles}
             contentLabel="Example Modal"
           >
-            <Event date={Moment(this.state.date)} data={data} />
+            <Event
+              date={Moment(this.state.date)}
+              data={data}
+              closeModal={this.closeModal}
+            />
           </Modal>
         </div>
       );
