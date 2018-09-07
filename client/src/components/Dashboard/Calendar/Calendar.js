@@ -32,7 +32,6 @@ class Calendar extends Component {
     this.state = {
       modalIsOpen: false,
       date: new Date(),
-      data: [],
       loading: true
     };
   }
@@ -110,13 +109,5 @@ class Calendar extends Component {
     }
   }
 }
-// const mapStateToProps = state => ({
-//   auth: state.auth,
-//   bills: state.bills
-// });
 
-// export default connect(
-//   mapStateToProps,
-//   { getBills }
-// )(Calendar);
 export default Calendar;
