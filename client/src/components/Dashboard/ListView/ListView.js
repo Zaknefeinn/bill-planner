@@ -10,8 +10,9 @@ class ListView extends Component {
       listData: [],
       show: 10,
       activePage: 1,
-      pageList: [1, 2, 3],
-      rendered: false
+      nextPage: 1,
+      pageList: [],
+      reload: true
     };
   }
   componentDidMount() {
@@ -29,14 +30,12 @@ class ListView extends Component {
     });
   }
   componentDidUpdate() {
-    this.getPageCount();
-    this.setState({ rendered: true });
+    if (this.state.reload) {
+      this.getPageCount();
+      this.setState({ reload: false });
+    }
   }
-  shouldComponentUpdate(nextProps, nextState) {
-    return (
-      nextState.activePage !== this.state.activePage || !this.state.rendered
-    );
-  }
+
   getPageCount = () => {
     const { listData, show } = this.state;
     const pages = Math.ceil(listData.length / show);
@@ -48,16 +47,39 @@ class ListView extends Component {
       pageList: pageArr
     });
   };
+
+  handleChange = state => {
+    this.setState({
+      [state.target.name]: parseInt(state.target.value),
+      reload: true
+    });
+  };
+  handleSubmit = e => {
+    const { pageList, nextPage } = this.state;
+    e.preventDefault();
+    console.log(nextPage);
+    console.log(pageList.length - 1);
+    if (nextPage <= pageList.length - 1) {
+      this.setState({
+        activePage: nextPage
+      });
+    } else {
+      this.setState({
+        activePage: pageList.length - 1,
+        nextPage: pageList.length - 1
+      });
+    }
+  };
   changePage = e => {
     this.setState({ activePage: e });
   };
 
   render() {
-    const { listData, pageList, show } = this.state;
+    const { listData, pageList, show, activePage, nextPage } = this.state;
     //remove expired bills
     //plug in active page for show range
-    const showMin = show - 10;
-    const showMax = show - 1;
+    const showMin = show * activePage - show;
+    const showMax = show * activePage;
     const pageData = listData.slice(showMin, showMax);
     return (
       <div className="ListView">
@@ -71,17 +93,28 @@ class ListView extends Component {
             );
           })}
         </div>
-        <div className="list-page">
-          {pageList.map(page => {
-            return (
-              <button
-                key={`${page}-pageList`}
-                onClick={() => this.changePage(page)}
-              >
-                {page}
-              </button>
-            );
-          })}
+        <div className="list-nav-container">
+          <form onSubmit={this.handleSubmit}>
+            Go to page
+            <input
+              type="number"
+              className="reg-input two-input"
+              name="nextPage"
+              value={nextPage}
+              onChange={this.handleChange}
+            />
+          </form>
+          Show
+          <select
+            className="reg-input two-input"
+            name="show"
+            value={show}
+            onChange={this.handleChange}
+          >
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+          </select>
         </div>
       </div>
     );
@@ -89,3 +122,13 @@ class ListView extends Component {
 }
 
 export default ListView;
+// {pageList.map(page => {
+//   return (
+//     <button
+//       key={`${page}-pageList`}
+//       onClick={() => this.changePage(page)}
+//     >
+//       {page}
+//     </button>
+//   );
+// })}
