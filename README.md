@@ -1,5 +1,7 @@
 # Bill Planner
 
+<h1>---- Actively under development ----<h1>
+
 Plan your finances, add accounts, and set budgets. 
 
 <h3>To Do List</h3>
