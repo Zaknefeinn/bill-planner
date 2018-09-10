@@ -1,6 +1,6 @@
 # Bill Planner
 
-<h1>---- Actively under development ----<h1>
+<h1>---- Actively under development ----</h1>
 
 Plan your finances, add accounts, and set budgets. 
 
