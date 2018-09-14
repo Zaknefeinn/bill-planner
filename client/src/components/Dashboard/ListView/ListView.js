@@ -50,7 +50,7 @@ class ListView extends Component {
 
   handleChange = state => {
     this.setState({
-      [state.target.name]: parseInt(state.target.value),
+      [state.target.name]: parseInt(state.target.value, 10),
       reload: true
     });
   };
@@ -75,7 +75,7 @@ class ListView extends Component {
   };
 
   render() {
-    const { listData, pageList, show, activePage, nextPage } = this.state;
+    const { listData, show, activePage, nextPage } = this.state;
     //remove expired bills
     //plug in active page for show range
     const showMin = show * activePage - show;
@@ -84,14 +84,32 @@ class ListView extends Component {
     return (
       <div className="ListView">
         <div className="list-container">
-          {pageData.map(bill => {
-            const date = Moment(bill.date).format('MM/DD/YY');
-            return (
-              <div className="list-card" key={`${bill.bill}-${date}-card`}>
-                {bill.bill} - {date}
-              </div>
-            );
-          })}
+          <h1>List View</h1>
+          <table className="list-view-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pageData.map(bill => {
+                const date = Moment(bill.date).format('MM/DD/YY');
+                return (
+                  <tr className="list-card" key={`${bill.bill}-${date}-card`}>
+                    <td>{bill.bill}</td>
+                    <td>{date}</td>
+                    <td>{bill.category}</td>
+                    <td>{bill.description}</td>
+                    <td>{bill.amount}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
         <div className="list-nav-container">
           <form onSubmit={this.handleSubmit}>

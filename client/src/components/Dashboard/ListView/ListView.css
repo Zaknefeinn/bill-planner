@@ -5,12 +5,25 @@
   /* height: 400px; */
   /* overflow-y: scroll; */
   overflow: hidden;
+  background-color: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 40px;
 }
 .list-card {
-  background-color: #f7f7f7;
   height: 100px;
-  width: 100%;
-  margin: 6px 0;
+  width: 90%;
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* justify-content: flex-start; */
+  /* align-items: center; */
+  /* margin: 6px 0; */
+  border-top: 1px solid rgba(179, 179, 203, 0.5);
+}
+.list-view-table {
+  width: 90%;
 }
 .list-nav-container {
   height: 30px;
