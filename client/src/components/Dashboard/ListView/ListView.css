@@ -28,3 +28,44 @@
 .list-nav-container {
   height: 30px;
 }
+.list-input {
+  border: 1px solid rgba(179, 179, 203, 0.5);
+  display: inline-block;
+  /* border-radius: 3px; */
+  padding: 8px;
+  width: 16px;
+  font-size: 14px;
+  text-align: center;
+  -webkit-appearance: none;
+}
+
+.list-input,
+.list-form i {
+  height: 28px;
+  border: 1px solid #ccc;
+  padding: 1px 8px;
+}
+.list-form i {
+  background-color: #e4e3e3;
+  display: inline-block;
+  line-height: 31px;
+  color: #555;
+}
+.list-form i:hover {
+  cursor: pointer;
+}
+.list-minus {
+  border-right: 0;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+}
+.list-plus {
+  border-left: 0;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+.list-form {
+  display: flex;
+  flex-direction: row;
+}

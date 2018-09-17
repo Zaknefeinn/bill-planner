@@ -85,6 +85,24 @@ class ListView extends Component {
       <div className="ListView">
         <div className="list-container">
           <h1>List View</h1>
+          <form className="list-form" onSubmit={this.handleSubmit}>
+            Go to page
+            <i
+              onClick={() => this.setState({ nextPage: nextPage - 1 })}
+              className="list-minus fas fa-minus"
+            />
+            <input
+              type="number"
+              className="list-input"
+              name="nextPage"
+              value={nextPage}
+              onChange={this.handleChange}
+            />
+            <i
+              onClick={() => this.setState({ nextPage: nextPage + 1 })}
+              className="list-plus fas fa-plus"
+            />
+          </form>
           <table className="list-view-table">
             <thead>
               <tr>
@@ -112,11 +130,11 @@ class ListView extends Component {
           </table>
         </div>
         <div className="list-nav-container">
-          <form onSubmit={this.handleSubmit}>
+          <form className="list-form" onSubmit={this.handleSubmit}>
             Go to page
             <input
               type="number"
-              className="reg-input two-input"
+              className="list-input"
               name="nextPage"
               value={nextPage}
               onChange={this.handleChange}
