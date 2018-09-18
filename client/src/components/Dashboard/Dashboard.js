@@ -18,7 +18,7 @@ class Dashboard extends Component {
       date: new Date(),
       data: [],
       loading: true,
-      activeTab: 'Overview'
+      activeTab: 'List'
     };
   }
   componentWillReceiveProps(nextProps) {

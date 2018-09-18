@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import Moment from 'moment';
+import classnames from 'classnames';
+
 import './ListView.css';
 
 class ListView extends Component {
@@ -10,7 +12,6 @@ class ListView extends Component {
       listData: [],
       show: 10,
       activePage: 1,
-      nextPage: 1,
       pageList: [],
       reload: true
     };
@@ -39,43 +40,95 @@ class ListView extends Component {
   getPageCount = () => {
     const { listData, show } = this.state;
     const pages = Math.ceil(listData.length / show);
-    let pageArr = [];
+    let pageList = [];
     for (var i = 0; i < pages; i++) {
-      pageArr.push(i + 1);
+      pageList.push(i + 1);
     }
     this.setState({
-      pageList: pageArr
+      pageList
     });
   };
 
   handleChange = state => {
     this.setState({
       [state.target.name]: parseInt(state.target.value, 10),
+      activePage: 1,
       reload: true
     });
   };
-  handleSubmit = e => {
-    const { pageList, nextPage } = this.state;
-    e.preventDefault();
-    console.log(nextPage);
-    console.log(pageList.length - 1);
-    if (nextPage <= pageList.length - 1) {
+
+  pageUp = () => {
+    const { activePage, pageList } = this.state;
+    if (activePage + 1 <= pageList.length) {
       this.setState({
-        activePage: nextPage
-      });
-    } else {
-      this.setState({
-        activePage: pageList.length - 1,
-        nextPage: pageList.length - 1
+        activePage: activePage + 1
       });
     }
   };
-  changePage = e => {
-    this.setState({ activePage: e });
+  pageDown = () => {
+    const { activePage } = this.state;
+    if (activePage - 1 > 0) {
+      this.setState({
+        activePage: activePage - 1
+      });
+    }
+  };
+  renderPageList = () => {
+    const { activePage, pageList } = this.state;
+
+    return (
+      <div className="page-list">
+        {pageList.map(page => {
+          if (activePage === 1 && activePage + 2 < page) {
+            return null;
+          } else if (
+            (activePage !== 1 && activePage + 1 < page) ||
+            (activePage !== 1 && activePage - 1 > page)
+          ) {
+            return null;
+          } else {
+            return (
+              <span
+                className={classnames('page-list-number', {
+                  'selected-page': activePage === page
+                })}
+                onClick={() =>
+                  this.setState({ activePage: parseInt(page, 10) })
+                }
+                key={`page-number-${page}`}
+              >
+                {page}
+              </span>
+            );
+          }
+        })}
+        {this.shouldRenderPageListExtension()}
+      </div>
+    );
+  };
+  shouldRenderPageListExtension = () => {
+    const { activePage, pageList } = this.state;
+    if (activePage <= parseInt(pageList[pageList.length - 1], 10) - 2) {
+      return (
+        <span>
+          <span className="page-list-number">...</span>
+          <span
+            className="page-list-number"
+            onClick={() =>
+              this.setState({
+                activePage: parseInt(pageList[pageList.length - 1], 10)
+              })
+            }
+          >
+            {pageList[pageList.length - 1]}
+          </span>
+        </span>
+      );
+    }
   };
 
   render() {
-    const { listData, show, activePage, nextPage } = this.state;
+    const { listData, show, activePage, pageList } = this.state;
     //remove expired bills
     //plug in active page for show range
     const showMin = show * activePage - show;
@@ -85,24 +138,15 @@ class ListView extends Component {
       <div className="ListView">
         <div className="list-container">
           <h1>List View</h1>
-          <form className="list-form" onSubmit={this.handleSubmit}>
-            Go to page
-            <i
-              onClick={() => this.setState({ nextPage: nextPage - 1 })}
-              className="list-minus fas fa-minus"
-            />
-            <input
-              type="number"
-              className="list-input"
-              name="nextPage"
-              value={nextPage}
-              onChange={this.handleChange}
-            />
-            <i
-              onClick={() => this.setState({ nextPage: nextPage + 1 })}
-              className="list-plus fas fa-plus"
-            />
-          </form>
+          <div className="page-container">
+            <div className="page-arrow" onClick={this.pageDown}>
+              <i className="fas fa-angle-left" />
+            </div>
+            {this.renderPageList()}
+            <div className="page-arrow" onClick={this.pageUp}>
+              <i className="fas fa-angle-right" />
+            </div>
+          </div>
           <table className="list-view-table">
             <thead>
               <tr>
@@ -128,29 +172,26 @@ class ListView extends Component {
               })}
             </tbody>
           </table>
-        </div>
-        <div className="list-nav-container">
-          <form className="list-form" onSubmit={this.handleSubmit}>
-            Go to page
-            <input
-              type="number"
-              className="list-input"
-              name="nextPage"
-              value={nextPage}
+          <div className="page-container">
+            <div className="page-arrow" onClick={this.pageDown}>
+              <i className="fas fa-angle-left" />
+            </div>
+            {this.renderPageList()}
+            <div className="page-arrow" onClick={this.pageUp}>
+              <i className="fas fa-angle-right" />
+            </div>
+            Show
+            <select
+              className="reg-input two-input"
+              name="show"
+              value={show}
               onChange={this.handleChange}
-            />
-          </form>
-          Show
-          <select
-            className="reg-input two-input"
-            name="show"
-            value={show}
-            onChange={this.handleChange}
-          >
-            <option value="10">10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-          </select>
+            >
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+          </div>
         </div>
       </div>
     );
@@ -158,13 +199,3 @@ class ListView extends Component {
 }
 
 export default ListView;
-// {pageList.map(page => {
-//   return (
-//     <button
-//       key={`${page}-pageList`}
-//       onClick={() => this.changePage(page)}
-//     >
-//       {page}
-//     </button>
-//   );
-// })}
