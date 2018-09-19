@@ -44,7 +44,7 @@ class NewBill extends Component {
       repeat,
       startDate: date
     };
-    this.props.addBill(newBill).then(() => console.log('hit'));
+    this.props.addBill(newBill);
   };
 
   handleChange = state => {
