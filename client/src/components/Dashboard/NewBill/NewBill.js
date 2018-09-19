@@ -16,7 +16,8 @@ class NewBill extends Component {
       description: '',
       amount: '',
       date: moment(),
-      repeat: 'noRepeat'
+      repeat: 'noRepeat',
+      errors: {}
     };
   }
   componentDidMount() {
@@ -24,6 +25,11 @@ class NewBill extends Component {
     this.setState({
       date: selectedDate
     });
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
   }
   handleSubmit = e => {
     e.preventDefault();
@@ -38,9 +44,7 @@ class NewBill extends Component {
       repeat,
       startDate: date
     };
-
-    this.props.addBill(newBill);
-    this.props.closeModal();
+    this.props.addBill(newBill).then(() => console.log('hit'));
   };
 
   handleChange = state => {
@@ -71,7 +75,7 @@ class NewBill extends Component {
           value={category}
           onChange={this.handleChange}
         >
-          <option value="defaultCategory">-- select a category --</option>
+          <option value="defaultCategory"> -- select a category -- </option>
           <option value="mortgage">Mortgage</option>
           <option value="utilities">utilities</option>
           <option value="other">other</option>
@@ -82,7 +86,7 @@ class NewBill extends Component {
           value={account}
           onChange={this.handleChange}
         >
-          <option value="defaultAccount">-- select an account -- </option>
+          <option value="defaultAccount"> -- select an account -- </option>
           {this.props.accounts.map(account => (
             <option
               key={`${account.accountName}-accountKey`}
@@ -134,7 +138,9 @@ class NewBill extends Component {
 }
 const mapStateToProps = state => ({
   auth: state.auth,
-  accounts: state.accounts
+  accounts: state.accounts,
+  errors: state.errors,
+  bills: state.bills
 });
 
 export default connect(

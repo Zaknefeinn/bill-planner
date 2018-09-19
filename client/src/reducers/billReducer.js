@@ -1,4 +1,4 @@
-import { GET_BILLS, DELETE_BILL } from '../actions/types';
+import { GET_BILLS } from '../actions/types';
 
 // const initialState = {
 //   bills: {}
@@ -7,12 +7,11 @@ import { GET_BILLS, DELETE_BILL } from '../actions/types';
 export default (state = [], action) => {
   switch (action.type) {
     case GET_BILLS:
-      return action.payload;
-    // case DELETE_BILL:
-    //   return {
-    //     ...state,
-    //     bills: state.bills.filter(bill => bill._id !== action.payload)
-    //   };
+      return action.payload.map(a => {
+        //turn amount into a 2 decimal monetary value
+        return { ...a, amount: a.amount.toFixed(2) };
+      });
+
     default:
       return state;
   }

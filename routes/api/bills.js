@@ -6,11 +6,16 @@ const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 // const jwt = require('jsonwebtoken');
 const User = require('../../models/User');
-
+const validateBillInput = require('../../validation/bill');
 router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
+    const { errors, isValid } = validateBillInput(req.body);
+
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
     const {
       bill,
       category,
@@ -18,7 +23,6 @@ router.post(
       description,
       amount,
       startDate,
-      // endDate,
       repeat
     } = req.body;
     User.findOne({ _id: req.user.id })
@@ -30,17 +34,14 @@ router.post(
           description,
           amount,
           startDate,
-          // endDate,
           repeat
         };
-        const billExists = user.bills.filter(
-          current => current.bill === bill && current.date === date
-        );
+        const billExists = user.bills.filter(current => current.bill === bill);
         if (billExists.length === 0) {
           user.bills.unshift(newBill);
           user.save().then(user => res.json(user));
         } else {
-          res.json({ error: 'bill already exists' });
+          return res.status(400).json({ bill: 'Bill already exists' });
         }
       })
       .catch(err => console.log(err));

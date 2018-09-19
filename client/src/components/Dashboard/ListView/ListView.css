@@ -10,15 +10,18 @@
   margin-bottom: 3.5em;
 }
 .list-card {
-  height: 100px;
+  height: 70px;
   width: 90%;
-  border-top: 1px solid rgba(179, 179, 203, 0.5);
+  border-top: 1px solid rgba(179, 179, 203, 0.3);
 }
 .list-view-table {
   width: 90%;
   margin-top: 2em;
 }
-
+.list-titles tr th {
+  font-weight: 900;
+  font-size: 1.1em;
+}
 .page-container {
   display: flex;
   flex-direction: row;
@@ -54,5 +57,9 @@
   margin: 0 8px;
 }
 .selected-page {
-  color: black;
+  color: #5e5e5e;
+}
+.list-show select {
+  width: 60px;
+  border: 1px solid rgba(179, 179, 203, 0.5);
 }

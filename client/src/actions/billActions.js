@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_BILLS, DELETE_BILL, GET_ERRORS } from './types';
+import { GET_BILLS, GET_ERRORS } from './types';
 
 import { getAuthToken } from '../utils/getAuthToken';
 axios.defaults.headers.common['Authorization'] = getAuthToken();
@@ -13,7 +13,12 @@ export const addBill = billData => dispatch => {
         payload: res.data.bills
       })
     )
-    .catch(err => console.log(err));
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
 };
 
 export const getBills = () => dispatch => {
@@ -26,7 +31,12 @@ export const getBills = () => dispatch => {
       });
       // console.log(res.data.bills);
     })
-    .catch(err => console.log(err));
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
 };
 export const deleteBill = id => dispatch => {
   axios
@@ -38,10 +48,9 @@ export const deleteBill = id => dispatch => {
       })
     )
     .catch(err =>
-      // dispatch({
-      //   type: GET_ERRORS,
-      //   payload: err.response.data
-      // })
-      console.log(err)
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
     );
 };

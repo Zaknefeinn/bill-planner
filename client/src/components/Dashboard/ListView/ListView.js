@@ -75,7 +75,6 @@ class ListView extends Component {
   };
   renderPageList = () => {
     const { activePage, pageList } = this.state;
-
     return (
       <div className="page-list">
         {pageList.map(page => {
@@ -108,7 +107,10 @@ class ListView extends Component {
   };
   shouldRenderPageListExtension = () => {
     const { activePage, pageList } = this.state;
-    if (activePage <= parseInt(pageList[pageList.length - 1], 10) - 2) {
+    if (
+      activePage <= parseInt(pageList[pageList.length - 1], 10) - 2 &&
+      parseInt(pageList[pageList.length - 1], 10) > 3
+    ) {
       return (
         <span>
           <span className="page-list-number">...</span>
@@ -148,13 +150,13 @@ class ListView extends Component {
             </div>
           </div>
           <table className="list-view-table">
-            <thead>
+            <thead className="list-titles">
               <tr>
                 <th>Name</th>
                 <th>Date</th>
                 <th>Category</th>
                 <th>Description</th>
-                <th>Amount</th>
+                <th>Due</th>
               </tr>
             </thead>
             <tbody>
@@ -162,11 +164,13 @@ class ListView extends Component {
                 const date = Moment(bill.date).format('MM/DD/YY');
                 return (
                   <tr className="list-card" key={`${bill.bill}-${date}-card`}>
-                    <td>{bill.bill}</td>
+                    <td>
+                      <strong>{bill.bill}</strong>
+                    </td>
                     <td>{date}</td>
                     <td>{bill.category}</td>
                     <td>{bill.description}</td>
-                    <td>{bill.amount}</td>
+                    <td>${bill.amount}</td>
                   </tr>
                 );
               })}
@@ -180,17 +184,18 @@ class ListView extends Component {
             <div className="page-arrow" onClick={this.pageUp}>
               <i className="fas fa-angle-right" />
             </div>
-            Show
-            <select
-              className="reg-input two-input"
-              name="show"
-              value={show}
-              onChange={this.handleChange}
-            >
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-            </select>
+            <div className="list-show">
+              <select
+                className="reg-input two-input"
+                name="show"
+                value={show}
+                onChange={this.handleChange}
+              >
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
