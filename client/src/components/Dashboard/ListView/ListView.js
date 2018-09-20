@@ -155,6 +155,7 @@ class ListView extends Component {
                 <th>Name</th>
                 <th>Date</th>
                 <th>Category</th>
+                <th>Account</th>
                 <th>Description</th>
                 <th>Due</th>
               </tr>
@@ -169,6 +170,7 @@ class ListView extends Component {
                     </td>
                     <td>{date}</td>
                     <td>{bill.category}</td>
+                    <td>{bill.account}</td>
                     <td>{bill.description}</td>
                     <td>${bill.amount}</td>
                   </tr>

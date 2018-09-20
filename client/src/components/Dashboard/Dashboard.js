@@ -5,6 +5,7 @@ import ListView from './ListView/ListView';
 import Navbar from './Navbar/Navbar';
 import TabNav from './TabNav/TabNav';
 import Account from './Account/Account';
+import Overview from './Overview/Overview';
 import { getBills } from '../../actions/billActions';
 import { getAccounts } from '../../actions/accountActions';
 import { logoutUser } from '../../actions/authActions';
@@ -18,7 +19,7 @@ class Dashboard extends Component {
       date: new Date(),
       data: [],
       loading: true,
-      activeTab: 'List'
+      activeTab: 'Overview'
     };
   }
   componentWillReceiveProps(nextProps) {
@@ -45,13 +46,13 @@ class Dashboard extends Component {
     const { activeTab } = this.state;
     switch (activeTab) {
       case 'List':
-        return <ListView data={this.state.data} loading={this.state.loading} />;
+        return <ListView data={this.state.data} />;
       case 'Calendar':
         return <Calendar data={this.state.data} loading={this.state.loading} />;
       case 'Accounts':
         return <Account />;
       default:
-        return 'test';
+        return <Overview data={this.state.data} />;
     }
   };
   render() {
