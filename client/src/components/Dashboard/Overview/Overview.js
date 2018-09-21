@@ -38,9 +38,7 @@ export default class Overview extends Component {
         value: parseInt(data.amount, 10)
       };
     });
-
     const amounts = _.map(listData, bill => parseInt(bill.amount, 10));
-
     const balance = {
       id: 'Remaining Balance',
       label: 'Balance',

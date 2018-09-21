@@ -29,9 +29,25 @@ class OverviewGraph extends Component {
       return (
         <div className="ov-graphs ov-sub">
           <Pie
-            width={400}
-            height={400}
+            width={600}
+            height={600}
             margin={{ top: 40, right: 100, left: 100, bottom: 40 }}
+            pixelRatio={2}
+            innerRadius={0.15}
+            cornerRadius={6}
+            padAngle={1}
+            fit={false}
+            colors="set1"
+            colorBy="id"
+            borderWidth={2}
+            borderColor="inherit:brighter(0.6)"
+            enableRadialLabels={false}
+            sliceLabel={'id'}
+            slicesLabelsSkipAngle={50}
+            slicesLabelsTextColor="#333333"
+            animate={true}
+            motionStiffness={90}
+            motionDamping={15}
             data={this.props.data}
           />
         </div>

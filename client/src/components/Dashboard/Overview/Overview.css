@@ -15,17 +15,15 @@
   padding: 0 15px;
   flex: 1;
 }
-/* .ov-left {
-  width: 35%;
-}
-.ov-right {
-  width: 65%;
-} */
 .ov-graphs {
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+g text {
+  font-size: 1em !important;
+  font-weight: bold;
 }
 .ov-sub {
   padding: 40px;
